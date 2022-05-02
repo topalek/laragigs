@@ -17,4 +17,21 @@ use Illuminate\Database\Eloquent\Model;
 class Listing extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'tags', 'company', 'location', 'email', 'website', 'description'];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $tag = $filters['tag'] ?? false;
+        $search = $filters['search'] ?? false;
+        if ($tag) {
+            $query->where('tags', 'like', "%$tag%");
+        }
+        if ($search) {
+            $query->where('title', 'like', "%$search%")
+                ->orWhere('description', 'like', "%$search%")
+                ->orWhere('tags', 'like', "%$search%")
+                ->orWhere('company', 'like', "%$search%");
+        }
+    }
 }

@@ -10,19 +10,31 @@ class ListingController extends Controller
     public function index(
     ): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $heading = 'Latest listings';
-        $listings = Listing::all();
-        return view('listing.index', compact('heading', 'listings'));
+        request('tag');
+        $listings = Listing::latest()->filter(request(['tag', 'search']))->get();
+        return view('listing.index', compact('listings'));
     }
 
     public function create()
     {
-        //
+        return view('listing.create');
     }
 
     public function store(Request $request)
     {
-        //
+        $filds = $request->validate([
+            'title'       => 'required|string',
+            'tags'        => 'required|string',
+            'company'     => 'required|string',
+            'location'    => 'required|string',
+            'email'       => 'required|email',
+            'website'     => 'required|url',
+            'description' => 'required|string',
+        ]);
+
+        Listing::create($filds);
+
+        return redirect('/')->with('message', 'success');
     }
 
     public function show(Listing $listing
