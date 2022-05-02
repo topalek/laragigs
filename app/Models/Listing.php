@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property string $website
  * @property string $description
+ * @property string $logo
  */
 class Listing extends Model
 {

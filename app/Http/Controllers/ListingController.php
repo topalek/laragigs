@@ -75,6 +75,10 @@ class ListingController extends Controller
 
     public function destroy(Listing $listing)
     {
-        //
+        if ($listing->logo) {
+            Storage::delete('public/' . $listing->logo);
+        }
+        $listing->delete();
+        return redirect('/')->with('message', 'Listing deleted');
     }
 }
