@@ -34,7 +34,7 @@ class ListingController extends Controller
 
         Listing::create($filds);
 
-        return redirect('/')->with('message', 'success');
+        return redirect('/')->with('message', 'Listing successfully created');
     }
 
     public function show(Listing $listing
