@@ -13,7 +13,7 @@ use App\Models\Listing;
             <p class="mb-4">Post a gig to find a developer</p>
         </header>
 
-        <form method="post" action="{{route('listing.store')}}">
+        <form method="post" action="{{route('listing.store')}}" enctype="multipart/form-data">
             @csrf
             <div class="mb-6">
                 <label

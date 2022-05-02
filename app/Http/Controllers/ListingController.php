@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ListingController extends Controller
 {
@@ -22,7 +23,7 @@ class ListingController extends Controller
 
     public function store(Request $request)
     {
-        $filds = $request->validate([
+        $fields = $request->validate([
             'title'       => 'required|string',
             'tags'        => 'required|string',
             'company'     => 'required|string',
@@ -30,9 +31,13 @@ class ListingController extends Controller
             'email'       => 'required|email',
             'website'     => 'required|url',
             'description' => 'required|string',
+//            'logo'        => 'mimes:jpeg,gif,png',
         ]);
 
-        Listing::create($filds);
+        if ($request->hasFile('logo')) {
+            $fields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+        Listing::create($fields);
 
         return redirect('/')->with('message', 'Listing successfully created');
     }
@@ -44,12 +49,28 @@ class ListingController extends Controller
 
     public function edit(Listing $listing)
     {
-        //
+        return view('listing.edit', compact('listing'));
     }
 
     public function update(Request $request, Listing $listing)
     {
-        //
+        $fields = $request->validate([
+            'title'       => 'required|string',
+            'tags'        => 'required|string',
+            'company'     => 'required|string',
+            'location'    => 'required|string',
+            'email'       => 'required|email',
+            'website'     => 'required|url',
+            'description' => 'required|string',
+//            'logo'        => 'mimes:jpeg,gif,png',
+        ]);
+        if ($request->hasFile('logo')) {
+            $fields['logo'] = $request->file('logo')->store('logos', 'public');
+            Storage::delete('public/' . $listing->logo);
+        }
+        $listing->update($fields);
+
+        return redirect()->route('listing.show', compact('listing'))->with('message', 'Listing updated');
     }
 
     public function destroy(Listing $listing)

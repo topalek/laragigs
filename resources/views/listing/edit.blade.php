@@ -5,56 +5,166 @@ use App\Models\Listing;
 /** @var $listing Listing */
 ?>
 <x-layout>
-    @include('partials._search')
-    <a href="{{route('listing.index')}}" class="inline-block text-black ml-4 mb-4"
-    ><i class="fa-solid fa-arrow-left"></i> Back
-    </a>
-    <div class="mx-4">
-        <x-card class="p-10">
-            <div
-                class="flex flex-col items-center justify-center text-center"
-            >
+    <x-card class="max-w-lg mx-auto mt-24 p-10">
+        <header class="text-center">
+            <h2 class="text-2xl font-bold uppercase mb-1">
+                Edit a Gig
+            </h2>
+            <p class="mb-4">Edit: {{$listing->title}}</p>
+        </header>
+
+        <form method="post" action="{{route('listing.update',$listing)}}" enctype="multipart/form-data">
+            @csrf
+            @method('put')
+            <div class="mb-6">
+                <label
+                    for="company"
+                    class="inline-block text-lg mb-2"
+                >Company Name</label
+                >
+                <input
+                    type="text"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="company"
+                    value="{{old('company',$listing->company)}}"
+                />
+                @error('company')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="title" class="inline-block text-lg mb-2"
+                >Job Title</label
+                >
+                <input
+                    type="text"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="title"
+                    placeholder="Example: Senior Laravel Developer"
+                    value="{{old('title',$listing->title)}}"
+                />
+                @error('title')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label
+                    for="location"
+                    class="inline-block text-lg mb-2"
+                >Job Location</label
+                >
+                <input
+                    type="text"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="location"
+                    placeholder="Example: Remote, Boston MA, etc"
+                    value="{{old('location',$listing->location)}}"
+                />
+                @error('location')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="email" class="inline-block text-lg mb-2"
+                >Contact Email</label
+                >
+                <input
+                    type="email"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="email"
+                    value="{{old('email',$listing->email)}}"
+                />
+                @error('email')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label
+                    for="website"
+                    class="inline-block text-lg mb-2"
+                >
+                    Website/Application URL
+                </label>
+                <input
+                    type="url"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="website"
+                    value="{{old('website',$listing->website)}}"
+                />
+                @error('website')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="tags" class="inline-block text-lg mb-2">
+                    Tags (Comma Separated)
+                </label>
+                <input
+                    type="text"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="tags"
+                    placeholder="Example: Laravel, Backend, Postgres, etc"
+                    value="{{old('tags',$listing->tags)}}"
+                />
+                @error('tags')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="logo" class="inline-block text-lg mb-2">
+                    Company Logo
+                </label>
+                <input
+                    type="file"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="logo"
+
+                />
                 <img
                     class="w-48 mr-6 mb-6  object-contain"
-                    src="{{asset("images/no-image.png")}}"
+                    src="{{$listing->logo ? asset("storage/".$listing->logo) : asset("images/no-image.png")}}"
                     alt=""
                 />
-
-                <h3 class="text-2xl mb-2">{{$listing->title}}</h3>
-                <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
-                <x-tags :tagsCsv="$listing->tags"/>
-                <div class="text-lg my-4">
-                    <i class="fa-solid fa-location-dot"></i>{{$listing->location}}
-                </div>
-                <div class="border border-gray-200 w-full mb-6"></div>
-                <div>
-                    <h3 class="text-3xl font-bold mb-4">
-                        Job Description
-                    </h3>
-                    <div class="text-lg space-y-6">
-                        <p>
-                            {{$listing->description}}
-                        </p>
-                        <div class="flex gap-2">
-                            <a
-                                href="mailto:{{$listing->email}}"
-                                class="block flex-auto bg-laravel text-white w-1/2 py-2 rounded-xl hover:opacity-80"
-                            ><i class="fa-solid fa-envelope"></i>
-                                Contact Employer</a
-                            >
-
-                            <a
-                                href="{{$listing->website}}"
-                                target="_blank"
-                                class="block flex-auto w-1/2 bg-black text-white py-2 rounded-xl hover:opacity-80"
-                            ><i class="fa-solid fa-globe"></i> Visit
-                                Website</a
-                            >
-                        </div>
-
-                    </div>
-                </div>
+                @error('logo')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
             </div>
-        </x-card>
-    </div>
+
+            <div class="mb-6">
+                <label
+                    for="description"
+                    class="inline-block text-lg mb-2"
+                >
+                    Job Description
+                </label>
+                <textarea
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="description"
+                    rows="10"
+                    placeholder="Include tasks, requirements, salary, etc"
+                >
+                    {{old('description',$listing->description)}}
+                </textarea>
+                @error('description')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <button
+                    class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+                >
+                    Update Gig
+                </button>
+
+                <a href="/" class="text-black ml-4"> Back </a>
+            </div>
+        </form>
+    </x-card>
 </x-layout>

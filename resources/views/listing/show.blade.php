@@ -16,7 +16,7 @@ use App\Models\Listing;
             >
                 <img
                     class="w-48 mr-6 mb-6  object-contain"
-                    src="{{asset("images/no-image.png")}}"
+                    src="{{$listing->logo ? asset("storage/".$listing->logo) : asset("images/no-image.png")}}"
                     alt=""
                 />
 
@@ -55,6 +55,11 @@ use App\Models\Listing;
                     </div>
                 </div>
             </div>
+        </x-card>
+        <x-card class="mt-4 p-2 flex space-x-6">
+            <a href="{{route('listing.edit',$listing)}}">
+                <i class="fa-solid fa-pencil mr-2"></i>Edit
+            </a>
         </x-card>
     </div>
 </x-layout>
