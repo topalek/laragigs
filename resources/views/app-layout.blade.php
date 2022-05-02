@@ -28,42 +28,24 @@
 </head>
 <body class="mb-48">
 <nav class="flex justify-between items-center mb-4">
-    <a href="index.html"
-    ><img class="w-24" src="images/logo.png" alt="" class="logo"
+    <a href="{{route('listing.index')}}"
+    ><img class="w-24" src="{{asset("images/logo.png")}}" alt="" class="logo"
         /></a>
     <ul class="flex space-x-6 mr-6 text-lg">
         <li>
-            <a href="register.html" class="hover:text-laravel"
+            <a href="{{route('register')}}" class="hover:text-laravel"
             ><i class="fa-solid fa-user-plus"></i> Register</a
             >
         </li>
         <li>
-            <a href="login.html" class="hover:text-laravel"
+            <a href="{{route('login')}}" class="hover:text-laravel"
             ><i class="fa-solid fa-arrow-right-to-bracket"></i>
                 Login</a
             >
         </li>
     </ul>
 </nav>
-<!-- Hero -->
-<section class="relative h-72 bg-laravel flex flex-col justify-center align-center text-center space-y-4 mb-4">
-    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-no-repeat bg-center"
-         style="background-image: url('images/laravel-logo.png')"></div>
 
-    <div class="z-10">
-        <h1 class="text-6xl font-bold uppercase text-white">
-            Lara<span class="text-black">Gigs</span>
-        </h1>
-        <p class="text-2xl text-gray-200 font-bold my-4">
-            Find or post Laravel jobs & projects
-        </p>
-        <div>
-            <a href="register.html"
-               class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">Sign
-                Up to List a Gig</a>
-        </div>
-    </div>
-</section>
 
 <main>
     @yield('content')

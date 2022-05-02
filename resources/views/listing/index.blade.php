@@ -1,14 +1,17 @@
 @extends('app-layout')
 
 @section('content')
+    @include('partials._hero')
+    @include('partials._search')
+
     <div class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">
 
         @forelse ($listings as $listing)
             <div class="bg-gray-50 border border-gray-200 rounded p-6">
                 <div class="flex">
                     <img
-                        class="hidden w-48 mr-6 md:block"
-                        src="images/acme.png"
+                        class="hidden w-48 mr-6 md:block object-contain"
+                        src="{{asset("images/no-image.png")}}"
                         alt=""
                     />
                     <div>
