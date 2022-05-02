@@ -24,10 +24,10 @@ use App\Models\Listing;
                 <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
                 <x-tags :tagsCsv="$listing->tags"/>
                 <div class="text-lg my-4">
-                    <i class="fa-solid fa-location-dot"></i>{{$listing->location}}
+                    <i class="fa-solid fa-location-dot mr-2 "></i>{{$listing->location}}
                 </div>
                 <div class="border border-gray-200 w-full mb-6"></div>
-                <div>
+                <div class="w-full">
                     <h3 class="text-3xl font-bold mb-4">
                         Job Description
                     </h3>

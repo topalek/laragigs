@@ -11,7 +11,7 @@ class ListingController extends Controller
     ): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         request('tag');
-        $listings = Listing::latest()->filter(request(['tag', 'search']))->get();
+        $listings = Listing::latest()->filter(request(['tag', 'search']))->paginate(6);
         return view('listing.index', compact('listings'));
     }
 
