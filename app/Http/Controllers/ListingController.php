@@ -52,6 +52,12 @@ class ListingController extends Controller
         return view('listing.edit', compact('listing'));
     }
 
+    public function manage()
+    {
+        $listings = Listing::all();
+        return view('listing.manage', compact('listings'));
+    }
+
     public function update(Request $request, Listing $listing)
     {
         $fields = $request->validate([

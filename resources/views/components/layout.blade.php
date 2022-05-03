@@ -33,18 +33,36 @@
         <img class="w-24 logo" src="{{asset("images/logo.png")}}" alt=""/>
     </a>
     <ul class="flex space-x-6 mr-6 text-lg">
-        <li>
-            <a href="{{route('register')}}" class="hover:text-laravel">
-                <i class="fa-solid fa-user-plus"></i>
-                Register
-            </a>
-        </li>
-        <li>
-            <a href="{{route('login')}}" class="hover:text-laravel">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                Login
-            </a>
-        </li>
+        @auth
+            <li>
+                Welcome <span class="text-bold uppercase">{{auth()->user()->name}}</span>
+            </li>
+            <li>
+                <a href="{{route('listing.manage')}}" class="hover:text-laravel">
+                    <i class="fa-solid fa-gears"></i>
+                    Manage listings
+                </a>
+            </li>
+            <li>
+                <a href="{{route('logout')}}" class="hover:text-laravel">
+                    <i class="fa-solid fa-logout"></i>
+                    Logout
+                </a>
+            </li>
+        @else
+            <li>
+                <a href="{{route('register')}}" class="hover:text-laravel">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Register
+                </a>
+            </li>
+            <li>
+                <a href="{{route('login')}}" class="hover:text-laravel">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    Login
+                </a>
+            </li>
+        @endauth
     </ul>
 </nav>
 
