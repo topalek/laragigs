@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ListingSeeder extends Seeder
@@ -14,6 +15,10 @@ class ListingSeeder extends Seeder
      */
     public function run()
     {
-        Listing::factory(10)->create();
+        $user = User::factory()->create([
+            'name'  => 'topalek',
+            'email' => 'admin@example.com',
+        ]);
+        Listing::factory(10)->create(['user_id' => $user->id]);
     }
 }
