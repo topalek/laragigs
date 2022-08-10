@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ListingController extends Controller
@@ -37,6 +38,7 @@ class ListingController extends Controller
         if ($request->hasFile('logo')) {
             $fields['logo'] = $request->file('logo')->store('logos', 'public');
         }
+        $fields['user_id'] = Auth::id();
         Listing::create($fields);
 
         return redirect('/')->with('message', 'Listing successfully created');
@@ -54,7 +56,7 @@ class ListingController extends Controller
 
     public function manage()
     {
-        $listings = Listing::all();
+        $listings = Listing::whereUserId(Auth::id())->paginate(10);
         return view('listing.manage', compact('listings'));
     }
 

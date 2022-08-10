@@ -5,6 +5,8 @@ use App\Models\Listing;
 /** @var $listing Listing */
 ?>
 <x-layout>
+{{--    <script src="//cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>--}}
+    <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
     <x-card class="max-w-lg mx-auto mt-24 p-10">
         <header class="text-center">
             <h2 class="text-2xl font-bold uppercase mb-1">
@@ -165,5 +167,10 @@ use App\Models\Listing;
                 <a href="/" class="text-black ml-4"> Back </a>
             </div>
         </form>
+        <script>
+            CKEDITOR.replace( 'description',{
+                allowedContent:true
+            } );
+        </script>
     </x-card>
 </x-layout>

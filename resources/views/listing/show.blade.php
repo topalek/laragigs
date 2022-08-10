@@ -33,7 +33,7 @@ use App\Models\Listing;
                     </h3>
                     <div class="text-lg space-y-6">
                         <p>
-                            {{$listing->description}}
+                            {!! $listing->description !!}
                         </p>
                         <div class="flex gap-2">
                             <a
@@ -55,29 +55,6 @@ use App\Models\Listing;
                     </div>
                 </div>
             </div>
-        </x-card>
-        <x-card class="mt-4 p-2 flex space-x-6">
-
-            <a href="{{route('listing.edit',$listing)}}">
-                <i class="fa-solid fa-pencil mr-2"></i>Edit
-            </a>
-            <form id="delete-form" action="{{route('listing.destroy',$listing)}}" method="post">
-                @method('delete')
-                @csrf
-                <button id="delete"
-                        class="text-red-500"
-                ><i class="fa-solid fa-trash mr-2"></i>Delete
-                </button>
-                <script>
-                    document.getElementById('delete').addEventListener('click', e => {
-                        e.preventDefault()
-                        if (!confirm('Are you sure?')) {
-                            return
-                        }
-                        document.getElementById('delete-form').submit()
-                    })
-                </script>
-            </form>
         </x-card>
     </div>
 
